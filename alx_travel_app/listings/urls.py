@@ -11,4 +11,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('initiate-payment/<int:booking_id>/', views.initiate_payment, name='initiate-payment'),
     path('verify-payment/<int:booking_id>/', views.verify_payment, name='verify-payment'),
+    path('', include(router.urls)),  # ✅ This line includes the ViewSet routes
 ]

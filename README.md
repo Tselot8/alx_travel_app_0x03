@@ -1,24 +1,33 @@
-# ALX Travel App - Payment Integration Task
+# 📨 Asynchronous Task Processing with Celery and Django
 
-## Overview
+## 📘 Overview
+This project demonstrates how to integrate **Celery** with a **Django application** to perform tasks asynchronously — specifically for sending booking and payment confirmation emails after a booking is created.  
 
-This project (`alx_travel_app_0x02`) is a travel booking platform built with **Django 5.2**, integrated with the **Chapa API** for secure payments. Users can create bookings, make payments, and verify transaction statuses. This is a continuation of `alx_travel_app_0x01` with added payment functionality.
-
----
-
-## Features
-
-- **Listings API**: View available travel listings.
-- **Booking API**: Create and manage bookings.
-- **Payment Integration**: Initiate and verify payments via Chapa API.
-- **Payment Status Tracking**: Payment statuses are stored in the database (`Pending`, `Completed`, `Failed`).
-- **API Documentation**: Swagger UI available at `/swagger/`.
+Using Celery ensures that long-running tasks like sending emails do not block the main request-response cycle, improving overall application performance and user experience.
 
 ---
 
-## Setup Instructions
+## ⚙️ Technologies Used
+- **Django** – Web framework
+- **Celery** – Distributed task queue for asynchronous processing
+- **RabbitMQ** – Message broker for task communication
+- **Redis / RPC** – (optional) result backend
+- **cURL / Postman** – API testing tools
+- **Ubuntu (WSL2)** – Development environment
 
-### 1. Clone the Project
-```bash
-git clone <your-repo-url>
-cd alx_travel_app_0x02
+---
+
+## 🧩 Task Description
+
+### 🎯 Goal
+To test asynchronous task execution using Celery by sending booking and payment confirmation emails after a booking is successfully created through the API.
+
+### 🧵 Workflow
+1. User sends a **booking request** via the Django REST API.
+2. The booking is saved to the database.
+3. A **Celery task** is triggered to:
+   - Send a **booking confirmation email**.
+   - Send a **payment confirmation email** asynchronously.
+4. The response is immediately returned to the user — email sending happens in the background.
+
+---

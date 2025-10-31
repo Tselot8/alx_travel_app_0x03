@@ -9,6 +9,7 @@ from rest_framework import viewsets
 from .models import Listing, Booking
 from .serializers import ListingSerializer, BookingSerializer
 from django.http import JsonResponse
+from .tasks import send_booking_confirmation_email
 
 def index(request):
     return JsonResponse({'message': 'Listings app is working!'})
@@ -77,3 +78,12 @@ def verify_payment(request, booking_id):
         payment.status = "Failed"
         payment.save()
         return Response({"message": "Payment failed"}, status=400)
+
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+
+    def perform_create(self, serializer):
+        booking = serializer.save()
+        # Trigger Celery task
+        send_booking_confirmation_email.delay(booking.user.email, booking.id)
