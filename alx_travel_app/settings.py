@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-CHAPA_SECRET_KEY = os.getenv("CHASECK_TEST-Ck0c7Eg77ROszbxGYaGxNmimdriN2uFi")
+CHAPA_SECRET_KEY = os.getenv("CHAPA_SECRET_KEY")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,7 +34,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -156,3 +156,17 @@ CELERY_TIMEZONE = 'UTC'
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'no-reply@alxtravelapp.com'
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+}
