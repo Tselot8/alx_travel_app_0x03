@@ -147,7 +147,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery Configuration
-CELERY_BROKER_URL = 'amqp://localhost'  # RabbitMQ default
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')  # RabbitMQ default
 CELERY_RESULT_BACKEND = 'rpc://'  # simple backend for testing
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
